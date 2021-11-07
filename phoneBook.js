@@ -64,7 +64,7 @@ app.get('/api/persons/:id', (req,res)=>{
 app.delete('/api/persons/:id', (req,res)=>{
     const id = req.params.id;
     phoneBook = phoneBook.filter(book=>book.id!= id)
-    res.status(402).send(`deleted ${id} successfully!`)
+    res.status(202).send(`deleted ${id} successfully!`)
 })
 app.post('/api/persons', (req,res,next)=>{
     const data = req.body;

@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node back/app.js",
+    "start": "node phoneBook.js",
     "build": "webpack",
-    "dev": "nodemon back/app.js"
+    "dev": "nodemon phoneBook.js"
   },
   "repository": {
     "type": "git",
@@ -31,6 +31,7 @@
   },
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "morgan": "^1.10.0"
   }
 }

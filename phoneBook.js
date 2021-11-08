@@ -8,6 +8,10 @@ app.use(cors({
     methods: '*'
 }));
 app.use(express.json());
+app.use(express.static('./src'))
+app.use('/', (req,res)=>{
+    res.sendFile('./src/index.html');
+})
 
 //morgan
 app.use(morgan('tiny'));

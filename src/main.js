@@ -32,7 +32,9 @@ root.append(getAllBtn, getPhoneInfoBtn, getUserInfoBtn , createBtn , deleteBtn, 
 getAllBtn.addEventListener('click',async ()=>{
     deleteForm();
     const data = await axios.get(`${url}/api/persons`);
-    outputSect.textContent = JSON.stringify(data.data);
+    outputSect.textContent = 'Contact List';
+    const table = createTable(data.data);
+    outputSect.append(table);
 })
 getPhoneInfoBtn.addEventListener('click',async ()=>{
     deleteForm();
@@ -45,7 +47,9 @@ getUserInfoBtn.addEventListener('click',async ()=>{
         const id= userIdInput.value;
         if(id){
         const data = await axios.get(`${url}/api/persons/${id}`);
-        outputSect.innerHTML = JSON.stringify(data.data);
+        outputSect.textContent = 'Contact Details';
+        const table = createTable([data.data]);
+        outputSect.append(table);
         } else{
             outputSect.textContent = 'Must Enter User ID';
         }
@@ -70,7 +74,7 @@ createBtn.addEventListener('click',async ()=>{
             const name = nameInput.value;
             const number = numberInput.value;
             const data = await axios.post(`${url}/api/persons`, {name, number})
-            outputSect.innerHTML = JSON.stringify(data.data);
+            outputSect.innerHTML = 'User Created Successfully';
             form.remove();
         } catch (error) {
             outputSect.textContent = error.response.data;
@@ -100,4 +104,28 @@ function deleteForm(){
         const formtoDel = document.getElementsByTagName('form');
         if(formtoDel.length == 0) return 
         formtoDel[0].remove();
+}
+function createTable(data){
+    const table = createElement("table", "contactTable");
+    const trheaders = createElement('tr', 'tr');
+    const thId = createElement('th', 'th')
+    const thName = createElement('th', 'th')
+    const thnumber = createElement('th', 'th')
+    thId.textContent = 'ID'
+    thName.textContent = 'Name'
+    thnumber.textContent = 'Number'
+    trheaders.append(thId, thName , thnumber)
+    table.append(trheaders);
+    for(let contact of data){
+        const tr = createElement('tr', 'tr');
+        const tdId = createElement('td', 'td')
+        const tdName = createElement('td', 'td')
+        const tdNumber = createElement('td', 'td')
+        tdId.textContent = contact.id;
+        tdName.textContent = contact.name;
+        tdNumber.textContent = contact.number;
+        tr.append(tdId,tdName,tdNumber)
+        table.append(tr);
+    }
+    return table;
 }

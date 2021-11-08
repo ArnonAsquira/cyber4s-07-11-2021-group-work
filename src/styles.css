@@ -1,6 +1,12 @@
+body{
+    overflow-x: hidden;
+    background: transparent url("https://i.pinimg.com/originals/74/cd/9b/74cd9b4bc75060394e7ff6beb9d96c34.jpg") no-repeat scroll 0px -39px;
+}
 h1{
     text-align: center;
     font-size: 40px;
+    letter-spacing: 4px;
+    text-shadow: 3px 3px 10px #B42CCE;
 }
 #root{
     display: flex;
@@ -8,11 +14,12 @@ h1{
     flex-wrap: wrap;
 }
 .userIdInput{
-    position: fixed;
+    position: absolute;
     left: 40%;
     top: 35%;
     width: 250px;
     text-align: center;
+    border: 2px solid salmon;
 }
 .axiosBtn{
     width: 100px;
@@ -24,14 +31,31 @@ h1{
 }
 .ouputSect{
     position: absolute;
-    left: 0%;
     top: 50%;
     font-size: 24px;
+    text-align: center;
+    width: 100%;
+    font-weight: bold;
 }
 .form{
     position: absolute;
-    left: 0%;
+    text-align: center;
     top: 50%;
+    left:30%;
     display: flex;
     justify-content:space-between;
+}
+.contactTable{
+    align-items: center;
+   width: 100%;
+   font-size: 24px;
+}
+.th{
+    border-bottom: 2px solid black;
+}
+.td{
+    padding: 2px;
+    font-weight: normal;
+    text-shadow: -3px 3px 4px #0F14CE;
+    color: wheat;
 }

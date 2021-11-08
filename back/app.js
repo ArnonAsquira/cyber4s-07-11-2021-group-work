@@ -41,7 +41,7 @@ app.use((req, res) => {
     res.status(404).send('unkown endpoint')
 })
 
-app.use(express.static(`../dist`));
+app.use(express.static(`../dist/`));
 
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "../dist/index.html");

@@ -1,0 +1,37 @@
+h1{
+    text-align: center;
+    font-size: 40px;
+}
+#root{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.userIdInput{
+    position: fixed;
+    left: 40%;
+    top: 35%;
+    width: 250px;
+    text-align: center;
+}
+.axiosBtn{
+    width: 100px;
+    height: 60px;
+    background-color: plum;
+}
+.axiosBtn:hover{
+    background-color: greenyellow;
+}
+.ouputSect{
+    position: absolute;
+    left: 0%;
+    top: 50%;
+    font-size: 24px;
+}
+.form{
+    position: absolute;
+    left: 0%;
+    top: 50%;
+    display: flex;
+    justify-content:space-between;
+}

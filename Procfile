@@ -1,1 +1,1 @@
-web: ./src/main.js
+web: phoneBook.js

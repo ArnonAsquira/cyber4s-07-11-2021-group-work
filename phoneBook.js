@@ -8,9 +8,9 @@ app.use(cors({
     methods: '*'
 }));
 app.use(express.json());
-app.use(express.static('./src'))
-app.use('/', (req,res)=>{
-    res.sendFile('./src/index.html');
+app.use(express.static('./dist'))
+app.get('/', (req,res)=>{
+    res.sendFile(__dirname + "/dist/index.html");
 })
 
 //morgan
@@ -70,7 +70,7 @@ app.delete('/api/persons/:id', (req,res)=>{
     phoneBook = phoneBook.filter(book=>book.id!= id)
     res.status(202).send(`deleted ${id} successfully!`)
 })
-app.post('/api/persons', (req,res,next)=>{
+app.post('/api/persons', (req,res)=>{
     const data = req.body;
     data.id = generateId();
     if(errorhandler(data) == 'ok'){
@@ -78,8 +78,8 @@ app.post('/api/persons', (req,res,next)=>{
         res.json(phoneBook);
     }
     else{
-        if(errorhandler(data) == 'exists')  res.status(400).send("name already exists")
-        if(errorhandler(data) == 'invalid') { res.status(400).send("invalid Data")}
+        if(errorhandler(data) == 'exists')  res.status(400).json({message:("name already exists")})
+        if(errorhandler(data) == 'invalid') res.status(400).json({message:("invalid Data")})
     }
 })
 

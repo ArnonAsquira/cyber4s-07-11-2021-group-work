@@ -30,23 +30,44 @@ function displayPhoneBook(phoneBookObj) {
 
 export function displaySearchEntryForm(e) {
     helpers.clearContents();
-    createSearchEntryForm();
+    createForm(searchEntryById, [{class: 'search-entry-input', placeholder: 'enter id'}], 'search');
 }
 
 // creating the search by id form
-function createSearchEntryForm() {
-   const input = helpers.createElement('input', [], ['search-entry-input'], {placeholder: 'search by id'});
-   const button = helpers.createElement('button', ['search'], ['search-entry-button'], {type: 'button'});
-   button.addEventListener('click', searchEntryById);
-   const form = helpers.createElement('form', [input, button], ['search-entry-form'], {});
+function createForm(EventListener, inputs =[], buttomText) {
+   const button = helpers.createElement('button', [buttomText], ['search-entry-button'], {type: 'button'});
+   button.addEventListener('click', EventListener);
+   const form = helpers.createElement('form', [button], ['search-entry-form'], {});
+   inputs.forEach((input) => {
+    const newInput = helpers.createElement('input', [], [input.class], {placeholder: input.placeholder});
+    form.insertBefore(newInput, button);
+})
    globalVr.ContentsDiv.appendChild(form);
 }
 
 // search entry by id
-
 async function searchEntryById(e) {
     const id = document.querySelector('.search-entry-input').value;
-    const entryObj = await axios.get(`${baserurl}/api/persons/${id}`);
-    console.log(entryObj);
-    displayPhoneBook(entryObj.data);
+    try {
+        const entryObj = await axios.get(`${baserurl}/api/persons/${id}`);
+        displayPhoneBook(entryObj.data);
+    } catch(error) {
+        alert(error.response.data);
+    }
+}
+
+// display crate new entry form 
+export function displayCreateNewEntryForm(e) {
+    helpers.clearContents();
+    createForm(searchEntryDetailToserver, [{class: 'create-entry-name', placeholder: 'name'}, {class: 'create-entry-number', placeholder: 'number'}], 'enter');
+}
+
+async function searchEntryDetailToserver() {
+  const entryObj = {name: document.querySelector('.create-entry-name').value, number: document.querySelector('.create-entry-number').value};
+  try {
+    await axios.post(`${baserurl}/api/persons`, entryObj);
+    alert('entry made')
+  } catch(error) {
+    alert(error.response.data);
+  }
 }

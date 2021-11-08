@@ -1,1 +1,1 @@
-web: ./phoneBook.js
+web: npm start

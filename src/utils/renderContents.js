@@ -16,7 +16,7 @@ function displayPhoneBook(phoneBookObj) {
     const PhoneBookDiv = helpers.createElement('ul', [], ['phoneBook-ul'], {});
     if (Array.from(phoneBookObj).length > 1) {
         phoneBookObj.forEach(entry => {
-            const newEntry =  helpers.createElement('li', [`Name: ${entry.name} Number: ${entry.number} id: ${entry.id}`], ['entry-li'], {});
+            const newEntry =  helpers.createElement('li', [`Name: ${entry.name}  Number: ${entry.number}  id: ${entry.id}`], ['entry-li'], {});
             PhoneBookDiv.appendChild(newEntry);
          });
     }else {
@@ -72,7 +72,7 @@ async function searchEntryDetailToserver() {
     alert(error.response.data || 'request failed failed');
   }
 }
-
+// creates delete form
 export function displayDeleteEntryForm() {
     helpers.clearContents();
     createForm(deleteEntry, [{class: 'delete-entry-id', placeholder: 'id'}], 'delete');

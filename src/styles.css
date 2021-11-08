@@ -1,3 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Mochiy+Pop+P+One&family=Raleway:wght@200&family=Zen+Kurenaido&display=swap');
+
+
+body {
+    background-color: cornflowerblue;
+    font-family: 'Mochiy Pop P One', sans-serif;
+}
+
 main > h1 {
     text-align: center;
     margin-top: 10%;
@@ -28,4 +36,39 @@ nav ul li {
 
 nav ul li:hover{
     color: brown;
+}
+
+nav h1 {
+    color: darkblue;
+}
+
+#contents > ul {
+    width: 1000px;
+    margin: 0 auto;
+    list-style:circle;
+    box-shadow: 5px 10px rgba(100, 100, 100, 0.3);
+}
+
+#contents > ul li {
+    margin-bottom: 20px;
+}
+
+input {
+    border:none;
+    outline: none;
+    background-color: silver;
+    height: 30px;
+    margin-left: 10px;
+}
+
+input:focus {
+    background-color: wheat;
+}
+
+button {
+    background-color: tomato;
+    border:none;
+    outline: none;
+    height: 35px;
+    border-radius: 10%;
 }

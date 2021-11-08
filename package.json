@@ -6,7 +6,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node phoneBook.js",
-    "build": "webpack",
     "dev": "nodemon phoneBook.js",
     "push": "git add . && git commit -m autopush && git push",
     "deploy": "git push heroku main"

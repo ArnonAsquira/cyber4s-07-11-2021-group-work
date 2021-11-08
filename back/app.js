@@ -19,10 +19,10 @@ app.use(cors({
     methods: '*'
 }));
 
-app.use(express.static(`../dist/`));
+app.use(express.static(`../dist`));
 
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "../dist/index.html");
+  res.sendFile(path.resolve(__dirname, "../dist/index.html"));
 });
 
 

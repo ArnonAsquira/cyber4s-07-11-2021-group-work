@@ -19,6 +19,12 @@ app.use(cors({
     methods: '*'
 }));
 
+app.use(express.static(`../dist/`));
+
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "../dist/index.html");
+});
+
 
 app.use(morgan(function (tokens, req, res) {
     return  [
@@ -39,12 +45,6 @@ app.use('/api/persons/', postRouters);
 
 app.use((req, res) => {
     res.status(404).send('unkown endpoint')
-})
-
-app.use(express.static(`../dist/`));
-
-app.get("/", (req, res) => {
-  res.sendFile(__dirname + "../dist/index.html");
 });
 
 

@@ -1,0 +1,31 @@
+main > h1 {
+    text-align: center;
+    margin-top: 10%;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    border-bottom: 1px solid;
+}
+
+nav ul {
+   list-style: none;
+   display: flex;
+   justify-content: center;
+}
+
+nav ul li {
+    margin-right: 5px;
+    border-right: 1px solid black;
+    height: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+nav ul li:hover{
+    color: brown;
+}

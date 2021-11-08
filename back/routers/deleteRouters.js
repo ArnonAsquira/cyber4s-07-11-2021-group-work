@@ -3,7 +3,7 @@ const Router = express.Router();
 const fs = require('fs');
 const path = require('path');
 
-Router.delete('api/persons/:id', (req, res) => {
+Router.delete('/:id', (req, res) => {
     fs.promises.readFile(path.resolve(__dirname, '../phoneBookDB.json'), 'utf-8')
     .then(data => {  
         console.log(req.params.id)

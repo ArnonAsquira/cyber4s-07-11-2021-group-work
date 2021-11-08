@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node back/app.js"
+    "start": "node back/app.js",
+    "deploy": "git push heroku pull-request:main",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
@@ -28,6 +30,7 @@
     "webpack-cli": "^4.9.1"
   },
   "dependencies": {
+    "axios": "^0.24.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "morgan": "^1.10.0",

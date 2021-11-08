@@ -73,7 +73,7 @@ createBtn.addEventListener('click',async ()=>{
             outputSect.innerHTML = JSON.stringify(data.data);
             form.remove();
         } catch (error) {
-            outputSect.textContent = error.message;
+            outputSect.textContent = error.response.data;
             form.remove();
         }
     })

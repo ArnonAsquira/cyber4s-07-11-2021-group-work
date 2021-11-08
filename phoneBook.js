@@ -78,8 +78,8 @@ app.post('/api/persons', (req,res)=>{
         res.json(phoneBook);
     }
     else{
-        if(errorhandler(data) == 'exists')  res.status(400).json({message:("name already exists")})
-        if(errorhandler(data) == 'invalid') res.status(400).json({message:("invalid Data")})
+        if(errorhandler(data) == 'exists')  res.status(400).send("name already exists")
+        if(errorhandler(data) == 'invalid') res.status(400).send("invalid Data")
     }
 })
 

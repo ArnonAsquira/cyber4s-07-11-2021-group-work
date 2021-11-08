@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node back/app.js",
-    "build": "webpack",
-    "dev": "nodemon back/app.js"
+    "start": "node phoneBook.js",
+    "dev": "nodemon phoneBook.js",
+    "push": "git add . && git commit -m autopush && git push",
+    "deploy": "git push heroku main"
   },
   "repository": {
     "type": "git",
@@ -30,7 +31,9 @@
     "webpack-cli": "^4.9.1"
   },
   "dependencies": {
+    "axios": "^0.24.0",
     "cors": "^2.8.5",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "morgan": "^1.10.0"
   }
 }

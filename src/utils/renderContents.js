@@ -62,12 +62,28 @@ export function displayCreateNewEntryForm(e) {
     createForm(searchEntryDetailToserver, [{class: 'create-entry-name', placeholder: 'name'}, {class: 'create-entry-number', placeholder: 'number'}], 'enter');
 }
 
+// sends the entry object to the server
 async function searchEntryDetailToserver() {
   const entryObj = {name: document.querySelector('.create-entry-name').value, number: document.querySelector('.create-entry-number').value};
   try {
     await axios.post(`${baserurl}/api/persons`, entryObj);
     alert('entry made')
   } catch(error) {
-    alert(error.response.data);
+    alert(error.response.data || 'request failed failed');
   }
+}
+
+export function displayDeleteEntryForm() {
+    helpers.clearContents();
+    createForm(deleteEntry, [{class: 'delete-entry-id', placeholder: 'id'}], 'delete');
+}
+
+async function deleteEntry() {
+    const id = document.querySelector('.delete-entry-id').value;
+    try {
+        console.log(id);
+        await axios.delete(`${baserurl}/api/persons/${id}`);
+    } catch(error) {
+       alert(error.response.data || 'delete failed'); 
+    }
 }

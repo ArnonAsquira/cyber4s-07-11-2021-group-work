@@ -5,7 +5,8 @@ const fs = require('fs');
 const deleteRouter = require('./routers/deleteRouters');
 const getRouters = require('./routers/getRouters');
 const postRouters = require('./routers/postRouters');
-const morgan = require('morgan')
+const morgan = require('morgan');
+const serveStatic = require('serve-static');
 
 const app = express();
 
@@ -39,6 +40,12 @@ app.use('/api/persons/', postRouters);
 app.use((req, res) => {
     res.status(404).send('unkown endpoint')
 })
+
+app.use(express.static(`../dist`));
+
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "../dist/index.html");
+});
 
 
 app.listen(port, (error) => {

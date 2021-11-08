@@ -1,3 +1,4 @@
+import * as globalVr from './globalVariebls';
 // generic create element function
 export function createElement(tagName, children = [], classes = [], attributes = {}) {
     let newEl = document.createElement(tagName);
@@ -14,4 +15,12 @@ export function createElement(tagName, children = [], classes = [], attributes =
         newEl.setAttribute(attr, attributes[attr]);
     }
     return newEl
+}
+
+// clear contents from contents div
+
+export function clearContents() {
+    Array.from(globalVr.ContentsDiv.children).forEach(child => {
+        child.remove();
+    })
 }

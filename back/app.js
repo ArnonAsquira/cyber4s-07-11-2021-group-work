@@ -65,8 +65,8 @@ app.use(morgan(function (tokens, req, res) {
 
 // retrieving all the phone book object
 //app.use('/', getRouters);
-app.get('/api/persons/', (req, res) => {
-    Entry.find({})
+app.get('/api/persons/', async (req, res) => {
+    await Entry.find({})
     .then(result => {
         res.json(result);
         mongoose.connection.close();

@@ -8,6 +8,7 @@ const postRouters = require('./routers/postRouters');
 const morgan = require('morgan');
 const serveStatic = require('serve-static');
 const Entry = require('../mongoosePhoneBookModuel');
+const { Mongoose } = require('mongoose');
 
 // intilizing the app
 const app = express();
@@ -68,7 +69,13 @@ app.get('/api/persons/:id', (req, res) => {
 })
 
  // deleting specific entry by id
-app.use('/api/persons/', deleteRouter);
+app.delete('/api/persons/:id', (req, res) => {
+    Entry.findByIdAndRemove(request.params.id)
+    .then(result => {
+      response.status(204).end()
+    })
+    .catch(error => next(error))
+});
 
 // creating a new entry 
 app.post('/api/persons/', (req, res) => {
@@ -95,6 +102,12 @@ app.post('/api/persons/', (req, res) => {
 app.use((req, res) => {
     res.status(404).send('unkown endpoint')
 });
+
+// error handeling middleware
+
+app.use((error, req, res, next) => {
+    res.status(400).send(error);
+})
 
 
 app.listen(port, (error) => {

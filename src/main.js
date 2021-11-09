@@ -19,8 +19,6 @@ searchEntryButton.addEventListener('click', async (e) => {
 // creates a new entry form 
 globalVR.navBarCreateNewEntry.addEventListener('click', async (e) => {
     EL.displayCreateNewEntryForm();
-    const entryObj = {name: document.querySelector('.create-entry-name').value, number: document.querySelector('.create-entry-number').value};
-    EL.createhEntryDetailToserver(entryObj)
 });
 
 // deletes entry with given id

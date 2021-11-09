@@ -57,32 +57,25 @@ export function displayCreateNewEntryForm() {
 }
 
 // sends the entry object to the server
-async function createhEntryDetailToserver(entryObj) {
+async function createhEntryDetailToserver(e) {
+  const entryObj = {name: document.querySelector('.create-entry-name').value, number: document.querySelector('.create-entry-number').value};
+  console.log(entryObj);
   try {
     await axios.post(`${baserurl}/api/persons`, entryObj);
     alert('entry made')
   } catch(error) {
-    console.log(error);
+    console.log(error.response.data);
     alert(error.response.data || 'request failed failed');
   }
 }
-// creates delete form
-export function displayDeleteEntryForm() {
-    helpers.clearContents();
-    createForm(deleteEntry, [{class: 'delete-entry-id', placeholder: 'id'}], 'delete');
+
+// deleting entry function
+async function deleteEntry(id) {
+    console.log(id);
+    await axios.delete(`${baserurl}/api/persons/${id}`);
 }
 
-async function deleteEntry() {
-    const id = document.querySelector('.delete-entry-id').value;
-    try {
-        console.log(id);
-        await axios.delete(`${baserurl}/api/persons/${id}`);
-    } catch(error) {
-       alert(error.response.data || 'delete failed'); 
-    }
-}
-
-
+// create a table with headers given as parameters
 function createTable(tableHeaders) {
     const mainTR = document.createElement('tr');
     const table = helpers.createElement('table', [mainTR], ['phoneBook-table'], {});
@@ -98,7 +91,16 @@ function logEntriesToTabel(phoneBookEntries, table) {
     phoneBookEntries.forEach(entry => { 
         const name = helpers.createElement('td', [entry.name], [], {});
         const number = helpers.createElement('td', [entry.number], [], {});
-        const deleteButton = helpers.createElement('td', ['delete'], ['delete-Entry-td'], {"data-id": phoneBookEntries.id})
+        const deleteButton = helpers.createElement('td', ['delete'], ['delete-Entry-td'], {"data-id": phoneBookEntries.id});
+        deleteButton.addEventListener('click', (e) => {
+            const id = e.target['data-id'];
+            try {
+                deleteEntry(id);
+            } catch {
+                console.log(error);
+                alert('delete failed');
+            }
+        })
         const tr = helpers.createElement('tr', [name, number, deleteButton], [], {});
         backgroundCounter % 2 === 0 ? tr.style.backgroundColor = 'green': tr.style.backgroundColor = 'blue';
         table.appendChild(tr);

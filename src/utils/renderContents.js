@@ -60,9 +60,9 @@ export function displayCreateNewEntryForm() {
 async function createhEntryDetailToserver(e) {
   const entryObj = {name: document.querySelector('.create-entry-name').value, number: document.querySelector('.create-entry-number').value};
   // checking for update request
-  if (checkForExistingName(entryObj.name)) {
-     const existingEntry = checkForExistingName(entryObj.name);
-      updateEntry(existingEntry);
+  if (await checkForExistingName(entryObj.name)) {
+     const existingEntry = await checkForExistingName(entryObj.name);
+      updateEntry(entryObj, existingEntry['id']);
       return
   }
   try {
@@ -116,18 +116,18 @@ function logEntriesToTabel(phoneBookEntries, table) {
 
 
 // check for existing name
-function checkForExistingName(name) {
-    const entry = phoneBookEntries.find({name: name});
-    console.log(entry);
+async function checkForExistingName(name) {
+    const entries = await phoneBookEntries;
+    const entry = entries.find(entry => name === entry.name);
     return entry;
 }
 // update entry
-function updateEntry(entry) {
-    const id = entry.id;
+async function updateEntry(entry, id) {
       try {
-        await axios.put(`${baserurl}/api/persons/${id}`, entryObj);
+        console.log(id)
+        await axios.put(`${baserurl}/api/persons/${id}`, entry);
       } catch(error) {
-          console.log(error);
+          console.log(error.response.data);
           alert('couldnnt update entry');
       }
 }

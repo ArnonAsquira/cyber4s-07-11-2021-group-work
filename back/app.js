@@ -55,10 +55,10 @@ app.use(morgan(function (tokens, req, res) {
 
 // retrieving all the phone book object
 //app.use('/', getRouters);
-app.get('/api/persons/', async (req, res) => {
-    await Entry.find({})
+app.get('/api/persons/', (req, res) => {
+    Entry.find({})
     .then(result => {
-        res.send(url);
+        res.send(result);
         mongoose.connection.close();
     })
     .catch(error => {

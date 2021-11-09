@@ -74,7 +74,7 @@ app.use('/api/persons/', deleteRouter);
 app.post('/api/persons/', (req, res) => {
     const body = req.body;
     if (!body.name || !body.number) {
-        res.status(403).send('entry must have a name and a number');
+        res.status(403).send(body);
         return;
     }
     try {

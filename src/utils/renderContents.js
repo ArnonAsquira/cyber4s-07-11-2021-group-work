@@ -15,7 +15,7 @@ export function displayPhoneBook(phoneBookObj) {
    helpers.clearContents();
    const table = createTable(['name', 'number']);
    logEntriesToTabel(phoneBookObj, table)
-    document.getElementById('contents').appendChild(table);
+   document.getElementById('contents').appendChild(table);
 }
 
 // search entry by id form
@@ -43,26 +43,26 @@ export async function searchEntryById(id) {
     console.log(name);
     try {
         const entryObj = await axios.get(`${baserurl}/api/persons/${name}`);
-        console.log(entryObj);
-        displayPhoneBook([entryObj.data]);
+        if (entryObj.data.length < 1 || !entryObj) throw 'invalid request'
+        displayPhoneBook(entryObj.data);
     } catch(error) {
-        alert(error.response.data);
+        alert(error);
     }
 }
 
 // display crate new entry form 
-export function displayCreateNewEntryForm(e) {
+export function displayCreateNewEntryForm() {
     helpers.clearContents();
-    createForm(searchEntryDetailToserver, [{class: 'create-entry-name', placeholder: 'name'}, {class: 'create-entry-number', placeholder: 'number'}], 'enter');
+    createForm(createhEntryDetailToserver, [{class: 'create-entry-name', placeholder: 'name'}, {class: 'create-entry-number', placeholder: 'number'}], 'enter');
 }
 
 // sends the entry object to the server
-async function searchEntryDetailToserver() {
-  const entryObj = {name: document.querySelector('.create-entry-name').value, number: document.querySelector('.create-entry-number').value};
+async function createhEntryDetailToserver(entryObj) {
   try {
     await axios.post(`${baserurl}/api/persons`, entryObj);
     alert('entry made')
   } catch(error) {
+    console.log(error);
     alert(error.response.data || 'request failed failed');
   }
 }

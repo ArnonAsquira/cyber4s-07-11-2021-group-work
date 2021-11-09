@@ -73,6 +73,9 @@ createBtn.addEventListener('click',async ()=>{
             e.preventDefault();
             const name = nameInput.value;
             const number = numberInput.value;
+            if(!name || !number){
+                return
+            }
             const data = await axios.post(`${url}/api/persons`, {name, number})
             outputSect.innerHTML = 'User Created Successfully';
             form.remove();

@@ -2,7 +2,7 @@ import * as helpers from './helperFunctions'
 import axios from 'axios';
 import * as globalVr from './globalVariebls';
 
-const baserurl = 'https://group-work-notes.herokuapp.com'
+const baserurl = 'https://group-work-notes.herokuapp.com';
 
 // requesting phone book from server 
 export async function getPhoneBook() {
@@ -59,7 +59,12 @@ export function displayCreateNewEntryForm() {
 // sends the entry object to the server
 async function createhEntryDetailToserver(e) {
   const entryObj = {name: document.querySelector('.create-entry-name').value, number: document.querySelector('.create-entry-number').value};
-  console.log(entryObj);
+  // checking for update request
+  if (checkForExistingName(entryObj.name)) {
+     const existingEntry = checkForExistingName(entryObj.name);
+      updateEntry(existingEntry);
+      return
+  }
   try {
     await axios.post(`${baserurl}/api/persons`, entryObj);
     alert('entry made')
@@ -108,3 +113,23 @@ function logEntriesToTabel(phoneBookEntries, table) {
         backgroundCounter ++;
     })
 }
+
+
+// check for existing name
+function checkForExistingName(name) {
+    const entry = phoneBookEntries.find({name: name});
+    console.log(entry);
+    return entry;
+}
+// update entry
+function updateEntry(entry) {
+    const id = entry.id;
+      try {
+        await axios.put(`${baserurl}/api/persons/${id}`, entryObj);
+      } catch(error) {
+          console.log(error);
+          alert('couldnnt update entry');
+      }
+}
+
+const phoneBookEntries =  getPhoneBook();

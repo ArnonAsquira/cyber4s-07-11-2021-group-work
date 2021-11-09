@@ -41,26 +41,23 @@ app.use(morgan(function (tokens, req, res) {
 
 
 // retrieving all the phone book object
-//app.use('/', getRouters);
 app.get('/api/persons/', (req, res) => {
     console.log('sndgabkjfdsakfljahsdlkjfhasdlkfhaslkjfhdlk');
     Entry.find({})
     .then(result => {
         res.json(result);
-        // mongoose.connection.close();
     })
     .catch(error => {
         console.log(error);
         res.status(500).send(error);
     })
 })
-
+// getting a single entry
 app.get('/api/persons/:id', (req, res) => {
     console.log(req.params.id);
     Entry.find({name: req.params.id})
     .then(result => {
         res.json(result);
-        // mongoose.connection.close();
     })
     .catch(error => {
         console.log(error);
@@ -98,13 +95,31 @@ app.post('/api/persons/', (req, res) => {
     }
 });
 
-
+// error handler for unknown endpoint
 app.use((req, res) => {
     res.status(404).send('unkown endpoint')
 });
 
-// error handeling middleware
+app.put('api/persons/:id', (req, res) => {
+    const body = req.body;
+    if (!body.name || !body.number) {
+        res.status(403).send(body);
+        return;
+    }
+    const entry  = {
+        name: body.name,
+        number: body.number
+    }
+    Entry.findByIdAndUpdate(req.params.id, entry, {new: true})
+    .then(updateEntry => {
+       res.json(updateEntry)
+    })
+    .catch(error => {
+        next(error);
+    })
+})
 
+// error handeling middleware
 app.use((error, req, res, next) => {
     res.status(400).send(error);
 })

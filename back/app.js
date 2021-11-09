@@ -80,7 +80,7 @@ app.post('/api/persons/', (req, res) => {
         number: body.number
     })
 
-    Entry.save()
+    entry.save()
     .then(savedEntry => {
         res.json(savedEntry)
     })

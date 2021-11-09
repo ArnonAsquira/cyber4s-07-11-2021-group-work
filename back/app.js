@@ -13,7 +13,7 @@ const { response } = require('express');
 // accessing the password from the gitigore file
 let password;
 try {
-    password = fs.readFileSync(path.resolve(__dirname, '../superSecretPasswordTomongo.json'),'utf-8');
+    password = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../superSecretPasswordTomongo.json'), 'utf-8'))[0];
     console.log(password);
 } catch(error) {
     console.log('password could not be accesed');
@@ -73,6 +73,7 @@ app.get('/api/persons', (req, res) => {
     })
     .catch(error => {
         console.log(error);
+        res.status(500).send(error);
     })
 })
 

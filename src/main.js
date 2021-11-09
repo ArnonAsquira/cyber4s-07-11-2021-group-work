@@ -48,7 +48,7 @@ getUserInfoBtn.addEventListener('click',async ()=>{
         if(id){
         const data = await axios.get(`${url}/api/persons/${id}`);
         outputSect.textContent = 'Contact Details';
-        const table = createTable([data.data]);
+        const table = createTable([data.data[0]]);
         outputSect.append(table);
         } else{
             outputSect.textContent = 'Must Enter User ID';
@@ -121,7 +121,7 @@ function createTable(data){
         const tdId = createElement('td', 'td')
         const tdName = createElement('td', 'td')
         const tdNumber = createElement('td', 'td')
-        tdId.textContent = contact.id;
+        tdId.textContent = contact.identifier;
         tdName.textContent = contact.name;
         tdNumber.textContent = contact.number;
         tr.append(tdId,tdName,tdNumber)

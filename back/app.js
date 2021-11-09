@@ -68,7 +68,7 @@ app.use(morgan(function (tokens, req, res) {
 app.get('/api/persons/', (req, res) => {
     Entry.find({})
     .then(result => {
-        response.json(result);
+        res.json(result);
         mongoose.connection.close();
     })
     .catch(error => {

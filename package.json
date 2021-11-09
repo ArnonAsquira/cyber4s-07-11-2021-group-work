@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node back/app.js",
-    "deploy": "git push heroku pull-request:main"
+    "deploy": "git push heroku pull-request:main",
+    "push": "git add . && git commit -m autopush && git push"
   },
   "repository": {
     "type": "git",

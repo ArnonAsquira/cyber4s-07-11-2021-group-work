@@ -59,7 +59,20 @@ app.get('/api/persons/', (req, res) => {
     mongoose.connect(url);
     Entry.find({})
     .then(result => {
-        res.send(result);
+        res.json(result);
+        mongoose.connection.close();
+    })
+    .catch(error => {
+        console.log(error);
+        res.status(500).send(error);
+    })
+})
+
+app.get('/api/persons/:id', (req, res) => {
+    mongoose.connect(url);
+    Entry.find({id: req.params.id})
+    .then(result => {
+        res.json(result);
         mongoose.connection.close();
     })
     .catch(error => {

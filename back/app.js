@@ -11,7 +11,7 @@ const mongoose = require('mongoose');
 
 
 // url adress to acces mongodb
-const url = `mongodb+srv://Arnon-Asquira:${process.env.mongoPassword}@cluster0.sihgr.mongodb.net/arnonsfirstdatabase?retryWrites=true&w=majority`;
+const url = process.env.mongourl;
 
 // mongoose logic
 mongoose.connect(url);
@@ -58,7 +58,7 @@ app.use(morgan(function (tokens, req, res) {
 app.get('/api/persons/', async (req, res) => {
     await Entry.find({})
     .then(result => {
-        res.json(result);
+        res.json(result || url);
         mongoose.connection.close();
     })
     .catch(error => {

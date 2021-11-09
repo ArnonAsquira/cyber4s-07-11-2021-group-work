@@ -2,15 +2,18 @@ const express  = require('express');
 const cors = require('cors');
 const app = express();
 const port = process.env.PORT || 3000;
-const morgan = require('morgan')
+const morgan = require('morgan');
+require('dotenv').config()
 app.use(cors({
     origin: '*',
     methods: '*'
 }));
 app.use(express.json());
 app.use(express.static('./dist'))
+// app.use(express.static('./src'))
 app.get('/', (req,res)=>{
     res.sendFile(__dirname + "/dist/index.html");
+    // res.sendFile(__dirname + "/src/index.html");
 })
 
 //morgan

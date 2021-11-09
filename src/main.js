@@ -1,6 +1,6 @@
-import './styles.css'
-// const url= 'http://localhost:3000'
-const url= 'https://omer-phonebook.herokuapp.com'
+// import './styles.css'
+const url= 'http://localhost:3000'
+// const url= 'https://omer-phonebook.herokuapp.com'
 //elements
 const root = document.getElementById('root');
 

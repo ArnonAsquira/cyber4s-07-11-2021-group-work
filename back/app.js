@@ -70,7 +70,7 @@ app.get('/api/persons/:id', (req, res) => {
 
  // deleting specific entry by id
 app.delete('/api/persons/:id', (req, res) => {
-    Entry.findByIdAndRemove(request.params.id)
+    Entry.findByIdAndRemove(req.params.id)
     .then(result => {
       res.status(204).end()
     })

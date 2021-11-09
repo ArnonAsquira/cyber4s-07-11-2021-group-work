@@ -96,7 +96,7 @@ app.post('/api/persons/', (req, res) => {
 });
 
 // updating entry
-app.put('api/persons/:id', (req, res) => {
+app.put('/api/persons/:id', (req, res) => {
     const body = req.body;
     if (!body.name || !body.number) {
         res.status(403).send(body);

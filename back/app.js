@@ -95,6 +95,7 @@ app.post('/api/persons/', (req, res) => {
     }
 });
 
+// updating entry
 app.put('api/persons/:id', (req, res) => {
     const body = req.body;
     if (!body.name || !body.number) {
@@ -114,15 +115,15 @@ app.put('api/persons/:id', (req, res) => {
     })
 })
 
-// error handler for unknown endpoint
-app.use((req, res) => {
-    res.status(404).send('unkown endpoint')
-});
-
 // error handeling middleware
 app.use((error, req, res, next) => {
     res.status(400).send(error);
 })
+
+// error handler for unknown endpoint
+app.use((req, res) => {
+    res.status(404).send('unkown endpoint')
+});
 
 
 app.listen(port, (error) => {

@@ -8,16 +8,6 @@ const postRouters = require('./routers/postRouters');
 const morgan = require('morgan');
 const serveStatic = require('serve-static');
 const mongoose = require('mongoose');
-const { response } = require('express');
-
-// accessing the password from the gitigore file
-let password;
-try {
-    password = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../superSecretPasswordTomongo.json'), 'utf-8'))[0];
-    console.log(password);
-} catch(error) {
-    console.log('password could not be accesed');
-}
 
 
 // url adress to acces mongodb

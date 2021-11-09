@@ -91,13 +91,14 @@ function logEntriesToTabel(phoneBookEntries, table) {
     phoneBookEntries.forEach(entry => { 
         const name = helpers.createElement('td', [entry.name], [], {});
         const number = helpers.createElement('td', [entry.number], [], {});
-        const deleteButton = helpers.createElement('td', ['delete'], ['delete-Entry-td'], {"data-id": phoneBookEntries.id});
-        deleteButton.addEventListener('click', (e) => {
-            const id = e.target['data-id'];
+        const deleteButton = helpers.createElement('td', ['delete'], ['delete-Entry-td'], {'data-id': entry.id});
+        deleteButton.addEventListener('click', async (e) => {
+            const id = e.target.getAttribute('data-id');
             try {
-                deleteEntry(id);
-            } catch {
-                console.log(error);
+               await deleteEntry(id);
+                // location.reload();
+            } catch (error) {
+                console.log(error.response);
                 alert('delete failed');
             }
         })

@@ -23,7 +23,6 @@ if (process.argv.length >= 5) {
         name: process.argv[3],
         number: process.argv[4],
      })
-     
      entry.save().then(result => {
        console.log(`added ${entry.name} number ${entry.number} to phone book`)
        mongoose.connection.close();

@@ -7,21 +7,7 @@ const getRouters = require('./routers/getRouters');
 const postRouters = require('./routers/postRouters');
 const morgan = require('morgan');
 const serveStatic = require('serve-static');
-const mongoose = require('mongoose');
-
-
-// url adress to acces mongodb
-const url = process.env.mongourl;
-
-// mongoose logic
-mongoose.connect(url);
-
-const phoneEntrySchema = new mongoose.Schema({
-  name: String,
-  number: String,
-})
-
-const Entry = mongoose.model('Entry', phoneEntrySchema);
+const Entry = require('../mongoosePhoneBookModuel');
 
 // intilizing the app
 const app = express();
@@ -56,11 +42,10 @@ app.use(morgan(function (tokens, req, res) {
 // retrieving all the phone book object
 //app.use('/', getRouters);
 app.get('/api/persons/', (req, res) => {
-    mongoose.connect(url);
     Entry.find({})
     .then(result => {
         res.json(result);
-        mongoose.connection.close();
+        // mongoose.connection.close();
     })
     .catch(error => {
         console.log(error);
@@ -69,11 +54,10 @@ app.get('/api/persons/', (req, res) => {
 })
 
 app.get('/api/persons/:id', (req, res) => {
-    mongoose.connect(url);
     Entry.find({id: req.params.id})
     .then(result => {
         res.json(result);
-        mongoose.connection.close();
+        // mongoose.connection.close();
     })
     .catch(error => {
         console.log(error);

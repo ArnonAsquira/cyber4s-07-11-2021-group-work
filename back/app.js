@@ -111,7 +111,8 @@ app.put('api/persons/:id', (req, res) => {
        res.json(updateEntry)
     })
     .catch(error => {
-        next(error);
+        res.status(500).send(error)
+        // next(error);
     })
 })
 

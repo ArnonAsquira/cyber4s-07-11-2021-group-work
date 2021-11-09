@@ -123,7 +123,7 @@ app.use((error, req, res, next) => {
 
 // error handler for unknown endpoint
 app.use((req, res) => {
-    res.status(404).send('unkown endpoint')
+    res.status(404).send(req);
 });
 
 

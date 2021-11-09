@@ -76,7 +76,6 @@ async function createhEntryDetailToserver(e) {
 
 // deleting entry function
 async function deleteEntry(id) {
-    console.log(id);
     await axios.delete(`${baserurl}/api/persons/${id}`);
 }
 
@@ -125,6 +124,8 @@ async function checkForExistingName(name) {
 async function updateEntry(entry, id) {
       try {
         console.log(id)
+        console.log(entry);
+        console.log(`${baserurl}/api/persons/${id}`);
         await axios.put(`${baserurl}/api/persons/${id}`, entry);
       } catch(error) {
           console.log(error.response.data);

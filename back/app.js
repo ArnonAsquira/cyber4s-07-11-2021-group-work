@@ -21,7 +21,7 @@ try {
 
 
 // url adress to acces mongodb
-const url = `mongodb+srv://Arnon-Asquira:${password}@cluster0.sihgr.mongodb.net/arnonsfirstdatabase?retryWrites=true&w=majority`;
+const url = `mongodb+srv://Arnon-Asquira:${process.env.mongoPassword}@cluster0.sihgr.mongodb.net/arnonsfirstdatabase?retryWrites=true&w=majority`;
 
 // mongoose logic
 mongoose.connect(url);

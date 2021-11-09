@@ -5,25 +5,17 @@ import * as globalVr from './globalVariebls';
 const baserurl = 'https://group-work-notes.herokuapp.com'
 
 // requesting phone book from server 
-export async function getPhoneBook(e) {
+export async function getPhoneBook() {
     const phoneBookObj = await axios.get(`${baserurl}/api/persons`);
-    displayPhoneBook(phoneBookObj.data);
+    return phoneBookObj.data;
 }
 
-// creating a ul to display the phone book entries
-function displayPhoneBook(phoneBookObj) {
+// logging in the entries to the phoneBook
+export function displayPhoneBook(phoneBookObj) {
    helpers.clearContents();
-    const PhoneBookDiv = helpers.createElement('ul', [], ['phoneBook-ul'], {});
-    if (Array.from(phoneBookObj).length > 1) {
-        phoneBookObj.forEach(entry => {
-            const newEntry =  helpers.createElement('li', [`Name: ${entry.name}  Number: ${entry.number}  id: ${entry.id}`], ['entry-li'], {});
-            PhoneBookDiv.appendChild(newEntry);
-         });
-    }else {
-        const newEntry = helpers.createElement('li', [`Name: ${phoneBookObj.name} Number: ${phoneBookObj.number} id: ${phoneBookObj.id}`], ['entry-li'], {});
-        PhoneBookDiv.appendChild(newEntry);
-    }
-    document.getElementById('contents').appendChild(PhoneBookDiv);
+   const table = createTable(['name', 'number']);
+   logEntriesToTabel(phoneBookObj, table)
+    document.getElementById('contents').appendChild(table);
 }
 
 // search entry by id form
@@ -46,11 +38,13 @@ function createForm(EventListener, inputs =[], buttomText) {
 }
 
 // search entry by id
-async function searchEntryById(e) {
-    const id = document.querySelector('.search-entry-input').value;
+export async function searchEntryById(id) {
+    const name = id;
+    console.log(name);
     try {
-        const entryObj = await axios.get(`${baserurl}/api/persons/${id}`);
-        displayPhoneBook(entryObj.data);
+        const entryObj = await axios.get(`${baserurl}/api/persons/${name}`);
+        console.log(entryObj);
+        displayPhoneBook([entryObj.data]);
     } catch(error) {
         alert(error.response.data);
     }
@@ -86,4 +80,28 @@ async function deleteEntry() {
     } catch(error) {
        alert(error.response.data || 'delete failed'); 
     }
+}
+
+
+function createTable(tableHeaders) {
+    const mainTR = document.createElement('tr');
+    const table = helpers.createElement('table', [mainTR], ['phoneBook-table'], {});
+    tableHeaders.forEach(header => {
+        const tableHeader = helpers.createElement('th', [header], [], {});
+        table.firstElementChild.appendChild(tableHeader);
+    })
+    return table;
+}
+
+function logEntriesToTabel(phoneBookEntries, table) {
+    let backgroundCounter = 1;
+    phoneBookEntries.forEach(entry => { 
+        const name = helpers.createElement('td', [entry.name], [], {});
+        const number = helpers.createElement('td', [entry.number], [], {});
+        const deleteButton = helpers.createElement('td', ['delete'], ['delete-Entry-td'], {"data-id": phoneBookEntries.id})
+        const tr = helpers.createElement('tr', [name, number, deleteButton], [], {});
+        backgroundCounter % 2 === 0 ? tr.style.backgroundColor = 'green': tr.style.backgroundColor = 'blue';
+        table.appendChild(tr);
+        backgroundCounter ++;
+    })
 }

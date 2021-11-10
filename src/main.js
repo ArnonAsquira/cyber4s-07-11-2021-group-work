@@ -2,7 +2,7 @@ import axios from 'axios';
 import style from './styles.css';
 import * as globalVR from './utils/globalVariebls';
 import * as EL from './utils/renderContents';
-import {createLoader, removeLoader} from './utils/helperFunctions';
+import {createLoader, injectSortedRowsToTable, removeLoader, sortEntriesAz} from './utils/helperFunctions';
 
 removeLoader();
 // displays phone book
@@ -26,3 +26,12 @@ searchEntryButton.addEventListener('click', async (e) => {
 globalVR.navBarCreateNewEntry.addEventListener('click', async (e) => {
     EL.displayCreateNewEntryForm();
 });
+
+document.body.addEventListener('click', (e) => {
+    if (e.target.innerText !== 'sort AZ') {
+        return;
+    }
+    const entries = document.querySelectorAll('.entry-row');
+    const sortedEntries = sortEntriesAz(entries);
+    injectSortedRowsToTable(sortedEntries);
+})

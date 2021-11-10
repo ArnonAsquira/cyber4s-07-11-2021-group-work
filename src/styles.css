@@ -164,4 +164,9 @@ td {
   .loader {
       margin-top: 10%;
   }
+
+  [head="sort AZ"] {
+    cursor: pointer;
+    background-color: coral;
+  }
   

@@ -20,13 +20,12 @@ export async function getPhoneBook() {
 export function displayPhoneBook(phoneBookObj) {
    helpers.clearContents();
    helpers.createLoader();
-   const table = createTable(['name', 'number']);
+   const table = createTable(['name', 'number', 'sort AZ']);
    logEntriesToTabel(phoneBookObj, table)
    document.getElementById('contents').appendChild(table);
 }
 
 // search entry by id form
-
 export function displaySearchEntryForm(e) {
     helpers.clearContents();
     createForm(searchEntryById, [{class: 'search-entry-input', placeholder: 'enter id'}], 'search');
@@ -100,38 +99,36 @@ function createTable(tableHeaders) {
     const mainTR = document.createElement('tr');
     const table = helpers.createElement('table', [mainTR], ['phoneBook-table'], {});
     tableHeaders.forEach(header => {
-        const tableHeader = helpers.createElement('th', [header], [], {});
+        const tableHeader = helpers.createElement('th', [header], [], {head: header});
         table.firstElementChild.appendChild(tableHeader);
     })
     return table;
 }
-// 
+//  log phoneBook entries to the 
 function logEntriesToTabel(phoneBookEntries, table) {
     helpers.createLoader();
     let backgroundCounter = 1;
     phoneBookEntries.forEach(entry => { 
-        const name = helpers.createElement('td', [entry.name], [], {});
+        const name = helpers.createElement('td', [entry.name], [], {'data-name': entry.name});
         const number = helpers.createElement('td', [entry.number], [], {});
         const deleteButton = helpers.createElement('td', ['delete'], ['delete-Entry-td'], {'data-id': entry.id});
         deleteButton.addEventListener('click', async (e) => {
             const id = e.target.getAttribute('data-id');
             try {
                await deleteEntry(id);
-                // location.reload();
+                location.reload();
             } catch (error) {
                 console.log(error.response);
                 alert('delete failed');
             }
         })
-        const tr = helpers.createElement('tr', [name, number, deleteButton], [], {});
+        const tr = helpers.createElement('tr', [name, number, deleteButton], ['entry-row'], {});
         backgroundCounter % 2 === 0 ? tr.style.backgroundColor = 'green': tr.style.backgroundColor = 'blue';
         table.appendChild(tr);
         backgroundCounter ++;
     })
     helpers.removeLoader();
 }
-
-
 // check for existing name
 async function checkForExistingName(name) {
     const entries = await phoneBookEntries;

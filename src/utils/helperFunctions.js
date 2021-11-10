@@ -34,3 +34,34 @@ export function removeLoader() {
     const loaderDiv = document.querySelector('.loader');
     loaderDiv.hidden = true;
 }
+
+let azCounter = 1
+export function sortEntriesAz(entries) {
+    const sortedEntries = Array.from(entries);
+    if (azCounter % 2 === 0) {
+        sortedEntries.sort((a, b) => {
+            if (a.firstElementChild.getAttribute('data-name') > b.firstElementChild.getAttribute('data-name')) {
+                return -1
+            } else {
+                return 1
+            }
+        })
+    }else {
+        sortedEntries.sort((a, b) => {
+            if (a.firstElementChild.getAttribute('data-name') < b.firstElementChild.getAttribute('data-name')) {
+                return -1
+            } else {
+                return 1
+            }
+        })
+    }
+    azCounter ++;
+    return sortedEntries;
+}
+
+export function injectSortedRowsToTable(sortedEntries) {
+    const table = document.querySelector('table');
+    sortedEntries.forEach(entry => {
+        table.appendChild(entry);
+    })
+}

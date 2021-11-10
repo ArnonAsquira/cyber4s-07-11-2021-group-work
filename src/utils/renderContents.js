@@ -1,7 +1,13 @@
 import * as helpers from './helperFunctions'
 import axios from 'axios';
 import * as globalVr from './globalVariebls';
+// import parsePhoneNumber from 'libphonenumber-js';
+import {
+    isValidPhoneNumber,
+    parsePhoneNumber
+  } from 'libphonenumber-js';
 
+// base url
 const baserurl = 'https://group-work-notes.herokuapp.com';
 
 // requesting phone book from server 
@@ -13,6 +19,7 @@ export async function getPhoneBook() {
 // logging in the entries to the phoneBook
 export function displayPhoneBook(phoneBookObj) {
    helpers.clearContents();
+   helpers.createLoader();
    const table = createTable(['name', 'number']);
    logEntriesToTabel(phoneBookObj, table)
    document.getElementById('contents').appendChild(table);
@@ -58,25 +65,34 @@ export function displayCreateNewEntryForm() {
 
 // sends the entry object to the server
 async function createhEntryDetailToserver(e) {
+   helpers.createLoader();
+  if (!isValidPhoneNumber(document.querySelector('.create-entry-number').value, 'IL')) {
+    alert('this is not a valid phone number');
+    return;
+  }
   const entryObj = {name: document.querySelector('.create-entry-name').value, number: document.querySelector('.create-entry-number').value};
   // checking for update request
   if (await checkForExistingName(entryObj.name)) {
-     const existingEntry = await checkForExistingName(entryObj.name);
-      updateEntry(entryObj, existingEntry['id']);
-      return
+    const existingEntry = await checkForExistingName(entryObj.name);
+    updateEntry(entryObj, existingEntry['id']);
+    return
   }
   try {
     await axios.post(`${baserurl}/api/persons`, entryObj);
-    alert('entry made')
+    helpers.removeLoader();
+    alert('entry made');
   } catch(error) {
-    console.log(error.response.data);
-    alert(error.response.data || 'request failed failed');
+    console.log(error);
+    helpers.removeLoader();
+    alert('request failed failed');
   }
 }
 
 // deleting entry function
 async function deleteEntry(id) {
+    helpers.createLoader();
     await axios.delete(`${baserurl}/api/persons/${id}`);
+    helpers.removeLoader();
 }
 
 // create a table with headers given as parameters
@@ -89,8 +105,9 @@ function createTable(tableHeaders) {
     })
     return table;
 }
-
+// 
 function logEntriesToTabel(phoneBookEntries, table) {
+    helpers.createLoader();
     let backgroundCounter = 1;
     phoneBookEntries.forEach(entry => { 
         const name = helpers.createElement('td', [entry.name], [], {});
@@ -111,6 +128,7 @@ function logEntriesToTabel(phoneBookEntries, table) {
         table.appendChild(tr);
         backgroundCounter ++;
     })
+    helpers.removeLoader();
 }
 
 
@@ -123,12 +141,8 @@ async function checkForExistingName(name) {
 // update entry
 async function updateEntry(entry, id) {
       try {
-        console.log(id)
-        console.log(entry);
-        console.log(`${baserurl}/api/persons/${id}`);
         await axios.put(`${baserurl}/api/persons/${id}`, entry);
       } catch(error) {
-          console.log(error.response.data);
           alert('couldnnt update entry');
       }
 }

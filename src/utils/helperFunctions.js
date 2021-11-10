@@ -24,3 +24,13 @@ export function clearContents() {
         child.remove();
     })
 }
+
+export function createLoader() {
+    const loaderDiv = document.querySelector('.loader');
+    loaderDiv.hidden = false;
+}
+
+export function removeLoader() {
+    const loaderDiv = document.querySelector('.loader');
+    loaderDiv.hidden = true;
+}

@@ -4,10 +4,14 @@ require('dotenv').config()
 mongoose.connect(process.env.DATABASE).then(console.log('DB Connected..')) //connect to Mongo using enviroment param
 const PhoneBookSchema = new mongoose.Schema({ //create schema for data
     identifier: String,
-    name: String,
+    name:{
+        type: String,
+        required: true
+    } ,
     number:{
         type : String,
-        unique: true
+        unique: true,
+        required: true
     }
   })
 

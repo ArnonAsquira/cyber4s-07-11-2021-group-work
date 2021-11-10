@@ -5,6 +5,8 @@ const port = process.env.PORT || 3000;
 const morgan = require('morgan');
 require('dotenv').config()
 const PhoneBook = require('./mongo')
+const {errorHandler , unknownEndpoint} = require('./Middlewear/middlewear')
+
 app.listen(port, (error) => {  //server initialization
     if(error) {
         console.log(error);
@@ -20,10 +22,8 @@ app.use(cors({
 app.use(express.json());
 
 app.use(express.static('./dist'))
-// app.use(express.static('./src'))
 app.get('/', (req,res)=>{
     res.sendFile(__dirname + "/dist/index.html");
-    // res.sendFile(__dirname + "/src/index.html");
 })
 
 //morgan
@@ -41,25 +41,27 @@ app.get('/info', async (req,res)=>{
     const length = (await PhoneBook.find({})).length
     res.send(`PhoneBook has info for ${length} <br> ${new Date()}`)
 })
-app.get('/api/persons/:id', async (req,res)=>{
+app.get('/api/persons/:id', async (req,res,next)=>{
     try {    
         const id = req.params.id;
         const contact = await PhoneBook.find({identifier:id});
         res.json(contact);
     } catch (error) {
-        res.status(404).send('Not Found!')
+        next('Not Found!')
+        // res.status(404).send('Not Found!')
     }
 })
-app.delete('/api/persons/:id', async(req,res)=>{
+app.delete('/api/persons/:id', async(req,res,next)=>{
     try {    
         const id = req.params.id;
         await PhoneBook.find({identifier:id}).remove()
         res.status(202).send(`deleted ${id} successfully!`)
     } catch (error) {
-        res.status(404).send('Unknown Id')
+        next('Not Found!')
+        // res.status(404).send('Not Found!')
     }
 })
-app.post('/api/persons', async(req,res)=>{
+app.post('/api/persons', async(req,res,next)=>{
     const {name,number} = req.body;
     try {
         const id = await generateId();
@@ -67,15 +69,14 @@ app.post('/api/persons', async(req,res)=>{
         await contact.save(); 
         res.send('Saved Successfully');
     } catch (error) {
-            res.status(400).send(error.message);
+            next(error)
+            // res.status(400).send(error.message);
     }
 })
 
 //middlewear
-const unknownEndpoint = (request, response) => {
-    response.status(404).send({ error: 'unknown endpoint' })
-}
 app.use(unknownEndpoint)
+app.use(errorHandler);
 
 //helping funcs
 const generateId = async() => {

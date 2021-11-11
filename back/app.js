@@ -93,7 +93,7 @@ app.post('/api/persons/', async (req, res, next) => {
             res.json(savedEntry);
         })
        } catch (error) {
-           next(error);
+           throw error;
        }
        return;
    }

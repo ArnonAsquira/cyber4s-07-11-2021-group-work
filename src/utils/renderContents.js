@@ -70,14 +70,11 @@ async function createhEntryDetailToserver(e) {
     return;
   }
   const entryObj = {name: document.querySelector('.create-entry-name').value, number: document.querySelector('.create-entry-number').value};
-  // checking for update request
-  if (await checkForExistingName(entryObj.name)) {
-    const existingEntry = await checkForExistingName(entryObj.name);
-    updateEntry(entryObj, existingEntry['id']);
-    return
-  }
   try {
-    await axios.post(`${baserurl}/api/persons`, entryObj);
+    const res = await axios.post(`${baserurl}/api/persons`, entryObj);
+    if (res.status === 201) {
+            updateEntry(entryObj, res.data);
+    }
     helpers.removeLoader();
     alert('entry made');
   } catch(error) {
@@ -129,12 +126,6 @@ function logEntriesToTabel(phoneBookEntries, table) {
     })
     helpers.removeLoader();
 }
-// check for existing name
-async function checkForExistingName(name) {
-    const entries = await phoneBookEntries;
-    const entry = entries.find(entry => name === entry.name);
-    return entry;
-}
 // update entry
 async function updateEntry(entry, id) {
       try {
@@ -143,5 +134,3 @@ async function updateEntry(entry, id) {
           alert('couldnnt update entry');
       }
 }
-
-const phoneBookEntries =  getPhoneBook();

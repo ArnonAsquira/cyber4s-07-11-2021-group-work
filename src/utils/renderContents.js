@@ -54,7 +54,7 @@ export async function searchEntryById(id) {
         if (entryObj.data.length < 1 || !entryObj) throw 'invalid request'
         displayPhoneBook(entryObj.data);
     } catch(error) {
-        alert(error);
+        Swal.fire(error);
     }
 }
 
@@ -68,7 +68,7 @@ export function displayCreateNewEntryForm() {
 async function createhEntryDetailToserver(e) {
    helpers.createLoader();
   if (!isValidPhoneNumber(document.querySelector('.create-entry-number').value, 'IL')) {
-    alert('this is not a valid phone number');
+    Swal.fire('this is not a valid phone number');
     helpers.removeLoader();
     return;
   }
@@ -83,11 +83,11 @@ async function createhEntryDetailToserver(e) {
         return;
     }
     helpers.removeLoader();
-    alert('entry made');
+    Swal.fire('entry made');
   } catch(error) {
     console.log(error);
     helpers.removeLoader();
-    alert('request failed');
+    Swal.fire('request failed');
   }
 }
 
@@ -123,7 +123,7 @@ function logEntriesToTabel(phoneBookEntries, table) {
                 location.reload();
             } catch (error) {
                 console.log(error.response);
-                alert('delete failed');
+                Swal.fire('delete failed');
             }
         })
         const tr = helpers.createElement('tr', [name, number, deleteButton], ['entry-row'], {});
@@ -138,6 +138,6 @@ async function updateEntry(entry, id) {
       try {
         await axios.put(`${baserurl}/api/persons/${id}`, entry);
       } catch(error) {
-          alert('couldnnt update entry');
+          Swal.fire('couldnnt update entry');
       }
 }

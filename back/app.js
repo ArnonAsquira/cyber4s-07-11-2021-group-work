@@ -87,14 +87,14 @@ app.post('/api/persons/', (req, res, next) => {
         if (entry[0].name) {
             res.status(201).send(entry[0].id);
             entryExists = true;
-            throw 'sent an update message to use'
+            next('sent an update message to use');
         }
     })
     .catch(error => {
         throw error;
     })
-    if (entryExists) return;
     try {
+        if (entryExists) throw 'sent an update message to use';
         const entry = new Entry({
             name: body.name, 
             number: body.number

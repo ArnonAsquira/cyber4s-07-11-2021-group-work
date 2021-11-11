@@ -81,14 +81,15 @@ app.post('/api/persons/', async (req, res, next) => {
         res.status(403).send(body);
         return;
     }
-    res.send('12321312312321');
-    return;
    const data = await Entry.find({name: body.name});
+    if (!data[0].name) {
+        res.send(body);
+        return;
+    }
     if (data[0].name) {
         res.status(201).send(data[0].id);
         throw 'sent an update message to use';
     } 
-    res.send('12321312312321');
         return;
         try {
             const newEntry = new Entry({

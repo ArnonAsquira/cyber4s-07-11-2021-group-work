@@ -83,15 +83,18 @@ app.post('/api/persons/', async (req, res, next) => {
     }
    const data = await Entry.find({name: body.name});
    if (!data[0]) {
-    const newEntry = new Entry({
-        name: body.name, 
-        number: body.number
-    })
-    newEntry.save()
-    .then(savedEntry => {
-        res.json(savedEntry);
-    })
-    .catch(error => {throw error})
+       try {
+        const newEntry = new Entry({
+            name: body.name, 
+            number: body.number
+        })
+        newEntry.save()
+        .then(savedEntry => {
+            res.json(savedEntry);
+        })
+       } catch (error) {
+           next(error);
+       }
        return;
    }
     if (data[0].name) {

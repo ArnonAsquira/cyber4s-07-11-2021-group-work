@@ -88,6 +88,8 @@ app.post('/api/persons/', async (req, res, next) => {
             name: body.name, 
             number: body.number
         })
+        res.send(newEntry);
+        return 
         newEntry.save()
         .then(savedEntry => {
             res.json(savedEntry);

@@ -82,10 +82,8 @@ app.post('/api/persons/', async (req, res, next) => {
         return;
     }
    const data = await Entry.find({name: body.name});
-    if (!data[0].name) {
-        res.send('123456782345678');
-        return;
-    }
+   res.send(data);
+   return;
     if (data[0].name) {
         res.status(201).send(data[0].id);
         throw 'sent an update message to use';

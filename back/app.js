@@ -91,14 +91,14 @@ app.post('/api/persons/', (req, res, next) => {
             return;
         }
         else {
-            createNewEntry(body);
+            createNewEntry(body, res);
         }
     })
 });
 
 // create new entry fucntion
 
-function createNewEntry(entry) {
+function createNewEntry(entry, res) {
     try {
         const Newentry = new Entry({
             name: entry.name, 

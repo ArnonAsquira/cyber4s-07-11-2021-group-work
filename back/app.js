@@ -9,7 +9,6 @@ const morgan = require('morgan');
 const serveStatic = require('serve-static');
 const Entry = require('../mongoosePhoneBookModuel');
 const { Mongoose } = require('mongoose');
-const { navBarCreateNewEntry } = require('../src/utils/globalVariebls');
 
 // intilizing the app
 const app = express();

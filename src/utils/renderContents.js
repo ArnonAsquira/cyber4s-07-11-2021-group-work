@@ -79,6 +79,7 @@ async function createhEntryDetailToserver(e) {
         updateEntry(entryObj, res.data);
         helpers.removeLoader();
         Swal.fire('entry updated')
+        return;
     }
     helpers.removeLoader();
     alert('entry made');

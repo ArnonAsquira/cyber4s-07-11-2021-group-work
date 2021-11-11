@@ -81,16 +81,19 @@ app.post('/api/persons/', (req, res, next) => {
         res.status(403).send(body);
         return;
     }
+    let entryExists = false;
     Entry.find({name: body.name})
     .then(entry => {
         if (entry[0].name) {
             res.status(201).send(entry[0].id);
+            entryExists = true;
             throw 'sent an update message to use'
         }
     })
     .catch(error => {
         throw error;
     })
+    if (!entryExists) return;
     try {
         const entry = new Entry({
             name: body.name, 

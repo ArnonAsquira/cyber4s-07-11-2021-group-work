@@ -74,7 +74,7 @@ app.delete('/api/persons/:id', (req, res) => {
     .catch(error => next(error))
 });
 
-// creating a new entry 
+// creating a new entry // very wierd beahvaiour, i dont know what the f is going on here 
 app.post('/api/persons/', async (req, res, next) => {
     const body = req.body;
     if (!body.name || !body.number) {
@@ -97,17 +97,6 @@ app.post('/api/persons/', async (req, res, next) => {
         res.status(201).send(data[0].id);
         throw 'sent an update message to use';
     } 
-        return;
-        // try {
-        //     const newEntry = new Entry({
-        //         name: body.name, 
-        //         number: body.number
-        //     })
-        //     newEntry.save()
-        //     .then(savedEntry => {
-        //         res.json(savedEntry);
-        //     })
-        // } 
 });
 
 // updating entry

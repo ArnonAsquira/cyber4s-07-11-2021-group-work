@@ -90,11 +90,11 @@ app.post('/api/persons/', (req, res, next) => {
         }
         else {
             try {
-                const entry = new Entry({
+                const Newentry = new Entry({
                     name: body.name, 
                     number: body.number
                 })
-                entry.save()
+                Newentry .save()
                 .then(savedEntry => {
                     res.json(savedEntry)
                 })

@@ -87,7 +87,7 @@ app.post('/api/persons/', async (req, res, next) => {
         res.status(201).send(data[0].id);
         throw 'sent an update message to use';
     } else {
-        res.send(Entry);
+        res.send(body);
         return;
         try {
             const newEntry = new Entry({

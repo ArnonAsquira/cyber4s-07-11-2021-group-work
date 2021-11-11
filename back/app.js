@@ -86,7 +86,7 @@ app.post('/api/persons/', async (req, res, next) => {
     if (data[0].name) {
         res.status(201).send(data[0].id);
         throw 'sent an update message to use';
-    } else {
+    } 
         res.send(body);
         return;
         try {
@@ -102,7 +102,6 @@ app.post('/api/persons/', async (req, res, next) => {
             next (error);
             // res.status(404).send('couldnt create entry');
         }
-    }
 });
 
 // create new entry fucntion

@@ -85,11 +85,14 @@ app.post('/api/persons/', (req, res, next) => {
     .then(entry => {
         if (entry.name) {
             throw 'entry must have a unique name'
+        } else {
+            res.send(entry);
         }
     })
     .catch(error => {
         next(error);
     })
+    return;
     try {
         const entry = new Entry({
             name: body.name, 

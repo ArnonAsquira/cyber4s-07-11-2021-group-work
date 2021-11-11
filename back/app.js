@@ -81,7 +81,7 @@ app.post('/api/persons/', (req, res, next) => {
         res.status(403).send(body);
         return;
     }
-    await Entry.find({name: body.name})
+    Entry.find({name: body.name})
     .then(entry => {
         if (entry[0].name) {
             res.status(201).send(entry[0].id);

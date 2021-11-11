@@ -83,7 +83,7 @@ app.post('/api/persons/', async (req, res, next) => {
     }
    const data = await Entry.find({name: body.name});
     if (!data[0].name) {
-        res.send(body);
+        res.send('123456782345678');
         return;
     }
     if (data[0].name) {

@@ -89,6 +89,9 @@ app.post('/api/persons/', (req, res, next) => {
             res.send(body.name)
         }
     })
+    .catch(error => {
+        next(error);
+    })
     return;
     try {
         const entry = new Entry({

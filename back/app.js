@@ -90,22 +90,23 @@ app.post('/api/persons/', (req, res, next) => {
             return;
         }
         else {
-            createNewEntry(body, res);
+           const savedEntry = createNewEntry(body);
+           res.send(savedEntry);
         }
     })
 });
 
 // create new entry fucntion
 
-function createNewEntry(entry, res) {
+function createNewEntry(entry) {
     try {
-        const Newentry = new Entry({
+        const newEntry = new Entry({
             name: entry.name, 
             number: entry.number
         })
-        Newentry.save()
+        newEntry.save()
         .then(savedEntry => {
-            res.json(savedEntry)
+            return savedEntry;
         })
     } catch(error) {
         next (error);

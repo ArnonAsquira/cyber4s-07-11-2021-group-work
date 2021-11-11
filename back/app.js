@@ -85,6 +85,7 @@ app.post('/api/persons/', (req, res, next) => {
     .then(entry => {
         if (entry[0].name) {
             res.status(201).send(entry[0].id);
+            throw 'sent an update message to use'
         }
     })
     .catch(error => {
@@ -128,8 +129,7 @@ app.put('/api/persons/:id', (req, res) => {
 
 // error handeling middleware
 app.use((error, req, res, next) => {
-    if (error.name === 'ValidationError') {
-       res.status(400).send('invalid entry object');
+    if (error ===  'sent an update message to use') {
        return;
     }
     res.status(400).send(error);

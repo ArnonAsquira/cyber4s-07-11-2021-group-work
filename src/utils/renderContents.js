@@ -1,6 +1,8 @@
 import * as helpers from './helperFunctions'
 import axios from 'axios';
 import * as globalVr from './globalVariebls';
+import Swal from 'sweetalert2';
+
 // import parsePhoneNumber from 'libphonenumber-js';
 import {
     isValidPhoneNumber,
@@ -73,7 +75,9 @@ async function createhEntryDetailToserver(e) {
   try {
     const res = await axios.post(`${baserurl}/api/persons`, entryObj);
     if (res.status === 201) {
-            updateEntry(entryObj, res.data);
+        updateEntry(entryObj, res.data);
+        helpers.removeLoader();
+        Swal.fire('entry updated')
     }
     helpers.removeLoader();
     alert('entry made');

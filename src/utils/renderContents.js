@@ -75,6 +75,7 @@ async function createhEntryDetailToserver(e) {
   const entryObj = {name: document.querySelector('.create-entry-name').value, number: document.querySelector('.create-entry-number').value};
   try {
     const res = await axios.post(`${baserurl}/api/persons`, entryObj);
+    console.log(res);
     if (res.status === 201) {
         updateEntry(entryObj, res.data);
         helpers.removeLoader();

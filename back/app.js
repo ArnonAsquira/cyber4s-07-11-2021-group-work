@@ -94,7 +94,7 @@ app.post('/api/persons/', (req, res, next) => {
                     name: body.name, 
                     number: body.number
                 })
-                Newentry .save()
+                Newentry.save()
                 .then(savedEntry => {
                     res.json(savedEntry)
                 })

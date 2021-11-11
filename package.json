@@ -8,7 +8,8 @@
     "start": "node back/app.js",
     "deploy": "git push heroku pull-request:main",
     "push": "git add . && git commit -m autopush && git push",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",

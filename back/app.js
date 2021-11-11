@@ -93,7 +93,7 @@ app.post('/api/persons/', (req, res, next) => {
     .catch(error => {
         throw error;
     })
-    if (!entryExists) return;
+    if (entryExists) return;
     try {
         const entry = new Entry({
             name: body.name, 

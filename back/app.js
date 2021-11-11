@@ -9,6 +9,7 @@ const morgan = require('morgan');
 const serveStatic = require('serve-static');
 const Entry = require('../mongoosePhoneBookModuel');
 const { Mongoose } = require('mongoose');
+const { navBarCreateNewEntry } = require('../src/utils/globalVariebls');
 
 // intilizing the app
 const app = express();
@@ -84,28 +85,34 @@ app.post('/api/persons/', (req, res, next) => {
 
     Entry.find({name: body.name})
     .then(entry => {
-        
         if (entry[0].name) {
             res.status(201).send(entry[0].id);
             next('sent an update message to use');
             return;
         }
-
-        try {
-            const Newentry = new Entry({
-                name: body.name, 
-                number: body.number
-            })
-            Newentry.save()
-            .then(savedEntry => {
-                res.json(savedEntry)
-            })
-        } catch(error) {
-            next (error);
-            // res.status(404).send('couldnt create entry');
+        else {
+            createNewEntry(body);
         }
     })
 });
+
+// create new entry fucntion
+
+function createNewEntry(entry) {
+    try {
+        const Newentry = new Entry({
+            name: entry.name, 
+            number: entry.number
+        })
+        Newentry.save()
+        .then(savedEntry => {
+            res.json(savedEntry)
+        })
+    } catch(error) {
+        next (error);
+        // res.status(404).send('couldnt create entry');
+    }
+}
 
 // updating entry
 app.put('/api/persons/:id', (req, res) => {

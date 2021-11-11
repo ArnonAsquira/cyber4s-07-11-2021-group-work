@@ -81,32 +81,29 @@ app.post('/api/persons/', (req, res, next) => {
         res.status(403).send(body);
         return;
     }
-    let entryExists = false;
-    Entry.find({name: body.name})
+    await Entry.find({name: body.name})
     .then(entry => {
         if (entry[0].name) {
             res.status(201).send(entry[0].id);
             entryExists = true;
             next('sent an update message to use');
         }
+        else {
+            try {
+                const entry = new Entry({
+                    name: body.name, 
+                    number: body.number
+                })
+                entry.save()
+                .then(savedEntry => {
+                    res.json(savedEntry)
+                })
+            } catch(error) {
+                next (error);
+                // res.status(404).send('couldnt create entry');
+            }
+        }
     })
-    .catch(error => {
-        throw error;
-    })
-    try {
-        if (entryExists) throw 'sent an update message to use';
-        const entry = new Entry({
-            name: body.name, 
-            number: body.number
-        })
-        entry.save()
-        .then(savedEntry => {
-            res.json(savedEntry)
-        })
-    } catch(error) {
-        next (error);
-        // res.status(404).send('couldnt create entry');
-    }
 });
 
 // updating entry

@@ -81,6 +81,10 @@ app.post('/api/persons/', (req, res, next) => {
         res.status(403).send(body);
         return;
     }
+    const duplicateENtryName = Entry.find({name: body.name});
+    if (duplicateENtryName) {
+        throw 'entry name must be unique'
+    }
     try {
         const entry = new Entry({
             name: body.name, 
@@ -131,7 +135,7 @@ app.use((req, res) => {
     res.status(404).send(req);
 });
 
-
+// activating the serevr
 app.listen(port, (error) => {
     if(error) {
         console.log(error);

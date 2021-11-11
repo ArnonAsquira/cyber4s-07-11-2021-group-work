@@ -83,7 +83,7 @@ app.post('/api/persons/', (req, res, next) => {
     }
     const duplicateENtryName = Entry.find({name: body.name});
     if (duplicateENtryName) {
-        throw 'entry name must be unique'
+        throw duplicateENtryName
     }
     try {
         const entry = new Entry({

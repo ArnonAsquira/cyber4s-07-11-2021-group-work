@@ -69,6 +69,7 @@ async function createhEntryDetailToserver(e) {
    helpers.createLoader();
   if (!isValidPhoneNumber(document.querySelector('.create-entry-number').value, 'IL')) {
     alert('this is not a valid phone number');
+    helpers.removeLoader();
     return;
   }
   const entryObj = {name: document.querySelector('.create-entry-name').value, number: document.querySelector('.create-entry-number').value};
@@ -84,7 +85,7 @@ async function createhEntryDetailToserver(e) {
   } catch(error) {
     console.log(error);
     helpers.removeLoader();
-    alert('request failed failed');
+    alert('request failed');
   }
 }
 

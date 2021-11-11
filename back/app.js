@@ -89,7 +89,7 @@ app.post('/api/persons/', (req, res, next) => {
         }
     })
     .catch(error => {
-        next(error);
+        throw error;
     })
     try {
         const entry = new Entry({

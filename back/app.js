@@ -83,7 +83,14 @@ app.post('/api/persons/', async (req, res, next) => {
     }
    const data = await Entry.find({name: body.name});
    if (!data[0]) {
-       res.send(body);
+    const newEntry = new Entry({
+        name: body.name, 
+        number: body.number
+    })
+    newEntry.save()
+    .then(savedEntry => {
+        res.json(savedEntry);
+    })
        return;
    }
     if (data[0].name) {
@@ -91,19 +98,16 @@ app.post('/api/persons/', async (req, res, next) => {
         throw 'sent an update message to use';
     } 
         return;
-        try {
-            const newEntry = new Entry({
-                name: body.name, 
-                number: body.number
-            })
-            newEntry.save()
-            .then(savedEntry => {
-                res.json(savedEntry);
-            })
-        } catch(error) {
-            next (error);
-            // res.status(404).send('couldnt create entry');
-        }
+        // try {
+        //     const newEntry = new Entry({
+        //         name: body.name, 
+        //         number: body.number
+        //     })
+        //     newEntry.save()
+        //     .then(savedEntry => {
+        //         res.json(savedEntry);
+        //     })
+        // } 
 });
 
 // updating entry

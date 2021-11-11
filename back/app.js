@@ -75,7 +75,7 @@ app.delete('/api/persons/:id', (req, res) => {
 });
 
 // creating a new entry 
-app.post('/api/persons/', (req, res, next) => {
+app.post('/api/persons/', async (req, res, next) => {
     const body = req.body;
     if (!body.name || !body.number) {
         res.status(403).send(body);
@@ -85,8 +85,7 @@ app.post('/api/persons/', (req, res, next) => {
    const data = await Entry.find({name: body.name});
     if (data[0].name) {
         res.status(201).send(data[0].id);
-        next('sent an update message to use');
-        return;
+        throw 'sent an update message to use';
     } else {
         try {
             const newEntry = new Entry({

@@ -92,6 +92,7 @@ app.post('/api/persons/', async (req, res, next) => {
         .then(savedEntry => {
             res.json(savedEntry);
         })
+        .catch(error => {throw error});
        } catch (error) {
            throw error;
        }
@@ -126,9 +127,6 @@ app.put('/api/persons/:id', (req, res) => {
 
 // error handeling middleware
 app.use((error, req, res, next) => {
-    if (error ===  'sent an update message to use') {
-       return;
-    }
     res.status(400).send(error);
 })
 

@@ -75,7 +75,7 @@ app.delete('/api/persons/:id', (req, res) => {
 });
 
 // creating a new entry 
-app.post('/api/persons/', (req, res) => {
+app.post('/api/persons/', (req, res, next) => {
     const body = req.body;
     if (!body.name || !body.number) {
         res.status(403).send(body);
@@ -91,7 +91,8 @@ app.post('/api/persons/', (req, res) => {
             res.json(savedEntry)
         })
     } catch(error) {
-        res.status(404).send('couldnt create entry');
+        next (error);
+        // res.status(404).send('couldnt create entry');
     }
 });
 
@@ -118,6 +119,10 @@ app.put('/api/persons/:id', (req, res) => {
 
 // error handeling middleware
 app.use((error, req, res, next) => {
+    if (error.name === 'ValidationError') {
+       res.status(400).send('invalid entry object');
+       return;
+    }
     res.status(400).send(error);
 })
 

@@ -1,13 +1,13 @@
 {
   "name": "cyber4s-07-11-2021-group-work",
   "version": "1.0.0",
-  "description": "",
+  "description": "we will be working on this assigment https://fullstackopen.com/en/part3.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node back/app.js",
     "build": "webpack",
-    "dev": "nodemon back/app.js"
+    "dev": "nodemon back/app.js",
+    "push": "git add . && git commit -m autopush && git push"
   },
   "repository": {
     "type": "git",
@@ -21,7 +21,6 @@
   },
   "homepage": "https://github.com/ArnonAsquira/cyber4s-07-11-2021-group-work#readme",
   "devDependencies": {
-    "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^6.5.1",
     "html-webpack-plugin": "^5.5.0",
     "nodemon": "^2.0.14",
@@ -30,7 +29,14 @@
     "webpack-cli": "^4.9.1"
   },
   "dependencies": {
+    "axios": "^0.24.0",
     "cors": "^2.8.5",
-    "express": "^4.17.1"
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "libphonenumber-js": "^1.9.42",
+    "mongoose": "^6.0.12",
+    "morgan": "^1.10.0",
+    "notyf": "^3.10.0",
+    "sweetalert": "^2.1.2"
   }
 }

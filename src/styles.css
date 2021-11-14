@@ -1,0 +1,185 @@
+/* WHOLE DOCUMENT */
+@import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans&display=swap'); /* import font from google */
+
+body {
+  background-color: seashell;
+  font-family: 'Merriweather Sans', sans-serif;
+  margin: 0;
+}
+
+*::selection {
+  background-color: gold;
+}
+
+/* TITLE */
+#title {
+  text-align: center;
+  color: goldenrod;
+  font-size: 5vw;
+  text-decoration: underline rgba(124, 124, 124, 0.71);
+  margin-bottom: 0;
+  margin-top: 4vw;
+}
+
+/* FORM INPUT */
+#userActionForm {
+  margin: auto;
+  margin-top: 4vw;
+  display: flex;
+  justify-content: center;
+  width: 80vw;
+  font-size: 2vw;
+  max-width: 1500px;
+}
+
+#userAction,
+.userInput,
+#submit {
+  height: 3vw;
+  border: solid goldenrod;
+  font-size: inherit;
+  padding: 0.3vw;
+  border-width: 0.2vw;
+  /* the following ensures they're all using the same box-model for rendering */
+  -moz-box-sizing: content-box; /* or `border-box` */
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+#userAction {
+  width: 15vw;
+  text-align: center;
+  background-color: goldenrod;
+  color: seashell;
+  font-weight: bold;
+  border-radius: 1.5vw 0px 0px 1.5vw;
+}
+#userAction:focus {
+  outline: none;
+}
+
+.options {
+  background-color: rgb(168, 156, 156);
+}
+
+#inputName {
+  width: 50vw;
+}
+
+/* custom floating label start */
+.floatingLabel {
+  position: relative;
+}
+.userInputLabel {
+  position: absolute;
+  visibility: hidden;
+  top: 0.7vw;
+  left: 0.7vw;
+  color: rgb(124, 124, 124);
+}
+.userInput {
+  width: 25vw;
+  border-width: 0.2vw 0 0.2vw 0;
+  padding-left: 0.7vw;
+  color: rgb(124, 124, 124);
+}
+.userInput:focus {
+  outline: none;
+  height: 1.9vw;
+  padding-top: 1.4vw;
+}
+.userInput::placeholder {
+  color: rgb(124, 124, 124);
+  font-family: 'Merriweather Sans', sans-serif;
+  font-size: 2vw;
+}
+.userInput:focus::placeholder {
+  color: transparent;
+}
+.floatingLabel:focus-within .userInputLabel {
+  transition: 0.5s;
+  visibility: visible;
+  font-size: 1vw;
+  top: 0.3vw;
+  left: 0.7vw;
+  color: goldenrod;
+}
+.userInput:not(:placeholder-shown) + .userInputLabel {
+  visibility: visible;
+  font-size: 1vw;
+  top: 0.3vw;
+  left: 0.7vw;
+  color: goldenrod;
+}
+.userInput:not(:placeholder-shown) {
+  height: 1.9vw;
+  padding-top: 1.4vw;
+}
+/* custom floating label end */
+
+#submit {
+  width: 15vw;
+  background-color: goldenrod;
+  color: seashell;
+  font-weight: bold;
+  border-radius: 0px 1.5vw 1.5vw 0px;
+}
+#submit:hover {
+  background-color: rgba(124, 124, 124, 0.71);
+}
+
+/* TABLE */
+#phonebook {
+  margin: auto;
+  margin-top: 5vw;
+  border-collapse: collapse;
+  width: 80vw;
+  max-width: 1500px;
+  margin-bottom: 30px;
+}
+
+#phonebook > thead {
+  background-color: goldenrod;
+  font-size: 2vw;
+  color: seashell;
+  margin: 0;
+  text-align: left;
+}
+
+#phonebook > tbody {
+  font-size: 1.5vw;
+}
+
+#phonebook > thead > tr > th {
+  height: 4vw;
+  padding-left: 3vw;
+}
+
+/* table curved border start */
+#phonebook > thead > tr > th:first-child {
+  border-top-left-radius: 1.5vw;
+}
+#phonebook > thead > tr > th:last-child {
+  border-top-right-radius: 1.5vw;
+}
+#phonebook > tbody > tr:last-child > td:first-child {
+  border-bottom-left-radius: 1.5vw;
+}
+#phonebook > tbody > tr:last-child > td:last-child {
+  border-bottom-right-radius: 1.5vw;
+}
+/* table curved body end */
+
+#phonebook > tbody > tr:nth-child(even) {
+  background-color: rgba(124, 124, 124, 0.71);
+}
+
+#phonebook > tbody > tr:nth-child(odd) {
+  background-color: rgba(124, 124, 124, 0.65);
+}
+
+.tableElem {
+  height: 3vw;
+  padding-left: 3vw;
+  color: seashell;
+}

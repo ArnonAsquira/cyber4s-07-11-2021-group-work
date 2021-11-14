@@ -1,5 +1,8 @@
-# cyber4s-07-11-2021-group-work
+# Phonebook
 
-we will be working on this assigment https://fullstackopen.com/en/part3.
+In this project I created a phonebook. This is a fullstack project meaning I designed the front end and the back end. I used nodejs and express to create the server and mongoDB to store the data. I designed the front end myself without using css, without implementing bootstrap or a design template.
 
-our goal is to finish part 'a' and 'b' until tommorow, so that we could begin working on mongoDB on tuesday.
+
+reference: https://fullstackopen.com/en/part3.
+
+

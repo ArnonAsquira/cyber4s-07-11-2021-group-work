@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css"
+    />
+    <title><%= htmlWebpackPlugin.options.title %></title>
+  </head>
+  <body>
+    <h1 id="title"><%= htmlWebpackPlugin.options.title %></h1>
+
+    <form id="userActionForm">
+      <select id="userAction" required>
+        <option value="findContact" class="options" selected>Find:</option>
+        <option value="deleteContact" class="options">Delete:</option>
+        <option value="addContact" class="options">Add:</option>
+        <option value="updateContact" class="options">Update:</option>
+      </select>
+
+      <div class="floatingLabel">
+        <input
+          required
+          type="text"
+          placeholder="Name"
+          id="inputName"
+          class="userInput"
+          name="inputName"
+        />
+        <label for="inputName" id="inputLabelName" class="userInputLabel"
+          >Name</label
+        >
+      </div>
+
+      <div class="floatingLabel" hidden>
+        <!-- The tel and pattern attributes allow me to limit
+        what keys the user can enter that section of the form -->
+        <input
+          type="tel"
+          pattern="[0-9-+ ]+"
+          placeholder="Phone Number"
+          id="inputPhoneNumber"
+          class="userInput"
+          name="inputPhoneNumber"
+        />
+        <label for="inputPhoneNumber" class="userInputLabel"
+          >Phone Number</label
+        >
+      </div>
+
+      <button id="submit" type="submit" value="submit">Submit</button>
+    </form>
+
+    <table class="" id="phonebook">
+      <thead>
+        <tr>
+          <th scope="col">Name:</th>
+          <th scope="col" class="borderCorner2">Number:</th>
+        </tr>
+      </thead>
+      <tbody id="phonebookInfo"></tbody>
+    </table>
+  </body>
+</html>

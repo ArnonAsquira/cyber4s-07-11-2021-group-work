@@ -1,14 +1,14 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = { 
   watch: true,
-  mode: 'development',
+  mode: 'production',
   entry: './src/main.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'main.[contenthash].js',
+    clean: true,
   },
   module: {
     rules: [
@@ -19,10 +19,9 @@ module.exports = {
     ],
   },
   plugins: [
-    new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
-      template: './src/index.html',
-      title: 'index',
+      template: './src/template.html',
+      title: 'Phonebook',
       filename: 'index.html'
   })
 ],
